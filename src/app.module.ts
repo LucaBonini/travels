@@ -22,6 +22,7 @@ import { AuthModule } from './modules/auth/auth.module';
         port: configService.get('DB_PORT'),
         username: configService.get('DB_USERNAME'),
         password: configService.get('DB_PASSWORD'),
+        database: configService.get('DB_NAME'),
         autoLoadEntities: true,
         synchronize: true // always keep db schema in sync
       })
