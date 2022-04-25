@@ -6,6 +6,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { AuthModule } from './modules/auth/auth.module';
+import { TravelModule } from './modules/travel/travel.module';
 
 @Module({
   imports: [
@@ -37,7 +38,8 @@ import { AuthModule } from './modules/auth/auth.module';
         path: configService.get('GQL_PATH'),
         autoSchemaFile: true,
       })
-    })
+    }),
+    TravelModule
   ],
   controllers: [AppController],
   providers: [AppService],

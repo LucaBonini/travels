@@ -25,7 +25,7 @@ export class AuthResolver {
   @Mutation(returns => LoginResponse)
   // @UseGuards(AuthGuard())
   signIn(
-    @Args() userCredentialsDto: UserCredentialsDto
+    @Args('userCredentialsDto') userCredentialsDto: UserCredentialsDto
   ) {
     return this.authService.signIn(userCredentialsDto);
   }
@@ -33,7 +33,7 @@ export class AuthResolver {
   @Mutation(returns => Boolean)
   // @UseGuards(AuthGuard())
   signUp(
-    @Args() userCredentialsDto: UserCredentialsDto
+    @Args('userCredentialsDto') userCredentialsDto: UserCredentialsDto
   ) {
     return this.authService.signUp(userCredentialsDto);
   }

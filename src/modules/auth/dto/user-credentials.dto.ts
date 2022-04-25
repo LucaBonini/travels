@@ -1,7 +1,8 @@
-import { ArgsType, Field, InputType } from "@nestjs/graphql"
+import { ArgsType, Field, InputType, ObjectType } from "@nestjs/graphql"
 import { IsEmail, IsString, ValidateNested, IsArray, MinLength, MaxLength, Matches } from "class-validator"
 
-@ArgsType()
+// @ArgsType()
+@InputType()
 export class UserCredentialsDto {
 
   @MinLength(4)
