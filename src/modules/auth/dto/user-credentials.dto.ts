@@ -1,13 +1,13 @@
-import { ArgsType } from "@nestjs/graphql"
-import { Type } from "class-transformer"
+import { ArgsType, Field, InputType } from "@nestjs/graphql"
 import { IsEmail, IsString, ValidateNested, IsArray, MinLength, MaxLength, Matches } from "class-validator"
 
 @ArgsType()
 export class UserCredentialsDto {
 
   @MinLength(4)
-  @MaxLength(20)
+  @MaxLength(30)
   @IsEmail()
+  @Field(type => String)
   email: string
 
   @MinLength(8)
@@ -16,5 +16,6 @@ export class UserCredentialsDto {
   @Matches(/((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/, {
     message: 'password is too weak'
   })
+  @Field(type => String)
   password: string
 }
