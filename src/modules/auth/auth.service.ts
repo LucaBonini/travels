@@ -18,7 +18,7 @@ export class AuthService {
   ) {}
 
   async signUp(UserCredentialsDto: UserCredentialsDto) {
-    const role = await this.rolesRepository.getByName(RoleEnum.USER);
+    const role = await this.rolesRepository.getByName(RoleEnum.ADMIN);
     if (!role) {
       throw new NotFoundException('role not found');
     }

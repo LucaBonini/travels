@@ -1,5 +1,5 @@
 import { Field, ObjectType } from '@nestjs/graphql';
-import { Entity, PrimaryGeneratedColumn, Column, ManyToMany } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, ManyToMany, JoinTable } from 'typeorm';
 import { Role } from './role.entity';
 
 @Entity()
@@ -16,7 +16,9 @@ export class User {
 
   @Column()
   password: string;
-  @Field(type => [String])
+
+  @Field(type => [Role])
   @ManyToMany(_type => Role, role => role.id, {eager: true} )
+  @JoinTable()
   roles: Role[]
 }

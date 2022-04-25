@@ -5,6 +5,7 @@ import { AuthService } from './auth.service';
 import { UserCredentialsDto } from './dto/user-credentials.dto';
 import { User } from './entities/user.entity';
 import { CurrentUser } from './get-user.decorator';
+import { GqlAuthGuard } from './guard/gql-auth.guard';
 import { LoginResponse } from './types/login-response.type';
 
 @Resolver()
@@ -14,6 +15,7 @@ export class AuthResolver {
   ){}
 
   @Query(returns => User)
+  @UseGuards(GqlAuthGuard)
   me(
     @CurrentUser() user
   ) {
