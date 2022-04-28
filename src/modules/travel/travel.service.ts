@@ -16,7 +16,7 @@ export class TravelService {
     return `This action returns a #${id} travel`;
   }
 
-  update(id: number, updateTravelInput: UpdateTravelInput) {
+  update(id: string, updateTravelInput: UpdateTravelInput) {
     return `This action updates a #${id} travel`;
   }
 

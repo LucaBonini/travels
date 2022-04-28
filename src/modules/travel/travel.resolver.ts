@@ -13,7 +13,7 @@ export class TravelResolver {
     return this.travelService.create(createTravelInput);
   }
 
-  @Query(() => [Travel], { name: 'travel' })
+  @Query(() => [Travel], { name: 'travels' })
   findAll() {
     return this.travelService.findAll();
   }
