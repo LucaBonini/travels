@@ -14,7 +14,7 @@ export class Traveler {
   @Field(() => String)
   fullname: string
 
-  @Column()
+  @Column({ unique: true })
   @Field(() => String)
   email: string
 
