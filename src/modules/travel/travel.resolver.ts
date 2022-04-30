@@ -19,7 +19,7 @@ export class TravelResolver {
   findAll(
     @Args('paginationInput') paginationInput: PaginationInput
   ) {
-    return this.travelService.findAll(paginationInput.page, paginationInput.pageSize);
+    return this.travelService.findAll(paginationInput);
   }
 
   @Query(() => Travel, { name: 'travel' })

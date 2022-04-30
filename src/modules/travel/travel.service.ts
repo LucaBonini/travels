@@ -1,6 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { Like } from 'typeorm';
 import { CreateTravelInput } from './dto/create-travel.input';
+import { PaginationInput } from './dto/pagination.input';
 import { UpdateTravelInput } from './dto/update-travel.input';
 import { TravelRepository } from './repositories/travel.repository';
 
@@ -15,13 +17,34 @@ export class TravelService {
     return this.travelRepository.createTravel(createTravelInput);
   }
 
-  async findAll(page: number, pageSize: number) {
-    const [ result, total ] = await this.travelRepository.findAndCount({
+  async findAll(paginationInput: PaginationInput) {
+    const { page, pageSize, slug, name, numberOfDays } = paginationInput;
+    let where = {};
+    if (slug) {
+      where = {
+        ...where,
+        slug: Like(`%${slug}%`)
+      };
+    }
+    if (name) {
+      where = {
+        ...where,
+        name: Like(`%${name}%`)
+      };
+    }
+    if (numberOfDays) {
+      where = {
+        ...where,
+        nDays: numberOfDays
+      };
+    }
+    const options = {
       take: pageSize,
-      skip: pageSize * (page - 1)
-    });
+      skip: pageSize * (page - 1),
+      where
+    }
 
-    console.log(total, 'total')
+    const [ result, total ] = await this.travelRepository.findAndCount(options);
 
     return {
       travels: result,
