@@ -1,5 +1,5 @@
-import { ObjectType, Field, Int, ID } from '@nestjs/graphql';
-import { User } from 'src/modules/auth/entities/user.entity';
+import { ObjectType, Field, Int, ID, Float } from '@nestjs/graphql';
+import { Transform } from 'class-transformer';
 import { Travel } from 'src/modules/travel/entities/travel.entity';
 import {
   AfterInsert,
@@ -36,11 +36,11 @@ export class Tour {
   @Column()
   endingDate: Date;
 
-  @Field(() => Int)
+  @Field(() => Float)
+  @Transform(val => val.value / 100)
   @Column()
   price: number;
 
-  // TODO set travelers
   @Field(() => [Traveler])
   @ManyToMany(() => Traveler, (traveler) => traveler.tours, {
     eager: true,
@@ -57,10 +57,5 @@ export class Tour {
   @AfterUpdate()
   logUpdate() {
     console.log('Tour updated');
-  }
-
-  @AfterLoad()
-  formatPrice() {
-    this.price = this.price / 100;
   }
 }
