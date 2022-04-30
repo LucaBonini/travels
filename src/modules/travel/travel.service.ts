@@ -18,7 +18,7 @@ export class TravelService {
   }
 
   async findAll(paginationInput: PaginationInput) {
-    const { page, pageSize, slug, name, numberOfDays } = paginationInput;
+    const { page, pageSize, slug, name, numberOfDays, sort, orderBy } = paginationInput;
     let where = {};
     if (slug) {
       where = {
@@ -38,12 +38,19 @@ export class TravelService {
         nDays: numberOfDays
       };
     }
-    const options = {
+
+    let options: any = {
       take: pageSize,
       skip: pageSize * (page - 1),
       where
     }
 
+    if (orderBy) {
+      options.order = {
+        [orderBy]: sort 
+      }
+    }
+    console.log(options, 'options')
     const [ result, total ] = await this.travelRepository.findAndCount(options);
 
     return {
