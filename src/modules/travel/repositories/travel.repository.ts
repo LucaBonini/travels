@@ -6,6 +6,7 @@ import { Travel } from '../entities/travel.entity';
 export class TravelRepository extends Repository<Travel> {
   async createTravel(createTravelInput: CreateTravelInput) {
     const travel = this.create(createTravelInput);
+    travel.nNights = travel.nDays - 1 > 0 ? travel.nDays - 1 : 0;
     return await this.save(travel);
   }
 }

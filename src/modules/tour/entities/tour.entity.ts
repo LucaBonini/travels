@@ -3,6 +3,7 @@ import { User } from 'src/modules/auth/entities/user.entity';
 import { Travel } from 'src/modules/travel/entities/travel.entity';
 import {
   AfterInsert,
+  AfterLoad,
   AfterUpdate,
   Column,
   Entity,
@@ -20,7 +21,6 @@ export class Tour {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Field(() => Travel)
   @ManyToOne(() => Travel, (travel) => travel.tours, { onDelete: 'CASCADE' })
   travel: Travel;
 
@@ -57,5 +57,10 @@ export class Tour {
   @AfterUpdate()
   logUpdate() {
     console.log('Tour updated');
+  }
+
+  @AfterLoad()
+  formatPrice() {
+    this.price = this.price / 100;
   }
 }

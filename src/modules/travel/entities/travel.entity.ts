@@ -42,6 +42,10 @@ export class Travel {
   @Column()
   nDays: number;
 
+  @Field(() => Int)
+  @Column()
+  nNights: number;
+
   @Field(() => Moods)
   @Column('jsonb')
   moods: Moods;
