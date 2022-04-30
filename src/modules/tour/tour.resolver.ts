@@ -3,12 +3,15 @@ import { TourService } from './tour.service';
 import { Tour } from './entities/tour.entity';
 import { CreateTourInput } from './dto/create-tour.input';
 import { UpdateTourInput } from './dto/update-tour.input';
+import { UseGuards } from '@nestjs/common';
+import { GqlAuthGuard } from '../auth/guard/gql-auth.guard';
 
 @Resolver(() => Tour)
 export class TourResolver {
   constructor(private readonly tourService: TourService) {}
 
   @Mutation(() => Tour)
+  @UseGuards(GqlAuthGuard)
   createTour(@Args('createTourInput') createTourInput: CreateTourInput) {
     return this.tourService.create(createTourInput);
   }
@@ -24,11 +27,13 @@ export class TourResolver {
   }
 
   @Mutation(() => Tour)
+  @UseGuards(GqlAuthGuard)
   updateTour(@Args('updateTourInput') updateTourInput: UpdateTourInput) {
     return this.tourService.update(updateTourInput.id, updateTourInput);
   }
 
   @Mutation(() => Boolean)
+  @UseGuards(GqlAuthGuard)
   removeTour(@Args('id', { type: () => ID }) id: string) {
     return this.tourService.remove(id);
   }

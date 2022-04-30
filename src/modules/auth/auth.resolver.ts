@@ -19,7 +19,6 @@ export class AuthResolver {
   }
 
   @Mutation((returns) => LoginResponse)
-  // @UseGuards(AuthGuard())
   signIn(@Args('userCredentialsDto') userCredentialsDto: UserCredentialsDto) {
     return this.authService.signIn(userCredentialsDto);
   }
