@@ -13,7 +13,7 @@ export class Tour {
   id: string
 
   @Field(() => Travel)
-  @ManyToOne(() => Travel, travel => travel.tours, {eager: true, onDelete: 'CASCADE'})
+  @ManyToOne(() => Travel, travel => travel.tours,  {onDelete: 'CASCADE'})
   travel: Travel
 
   @Field(() => String)

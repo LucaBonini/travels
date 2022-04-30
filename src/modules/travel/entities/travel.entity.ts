@@ -46,7 +46,8 @@ export class Travel {
   @Column('jsonb')
   moods: Moods
 
-  @OneToMany(() => Tour, tour => tour.travel)
+  @Field(() => [Tour], { nullable: true })
+  @OneToMany(() => Tour, tour => tour.travel, {eager: true})
   tours: Tour[]
 
 }
