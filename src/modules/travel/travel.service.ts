@@ -51,7 +51,6 @@ export class TravelService {
         [orderBy]: sort,
       };
     }
-    console.log(options, 'options');
     const [result, total] = await this.travelRepository.findAndCount(options);
 
     return {
