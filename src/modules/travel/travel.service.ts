@@ -27,7 +27,8 @@ export class TravelService {
     return `This action updates a #${id} travel`;
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} travel`;
+  async remove(id: string) {
+    const res = await this.travelRepository.delete(id);
+    return !!res.affected;
   }
 }

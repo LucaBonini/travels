@@ -21,11 +21,11 @@ export class TourService {
   }
 
   findAll() {
-    return `This action returns all tour`;
+    return this.tourRepository.find();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} tour`;
+  findOne(id: string) {
+    return this.tourRepository.findOne(id);
   }
 
   async update(id: string, updateTourInput: UpdateTourInput) {
@@ -44,7 +44,8 @@ export class TourService {
     return this.tourRepository.findOne(id);
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} tour`;
+  async remove(id: string) {
+    const res = await this.tourRepository.delete(id);
+    return !!res.affected;
   }
 }

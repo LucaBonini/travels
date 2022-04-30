@@ -1,4 +1,4 @@
-import { Resolver, Query, Mutation, Args, Int } from '@nestjs/graphql';
+import { Resolver, Query, Mutation, Args, Int, ID } from '@nestjs/graphql';
 import { TourService } from './tour.service';
 import { Tour } from './entities/tour.entity';
 import { CreateTourInput } from './dto/create-tour.input';
@@ -15,13 +15,13 @@ export class TourResolver {
     return this.tourService.create(createTourInput);
   }
 
-  @Query(() => [Tour], { name: 'tour' })
+  @Query(() => [Tour], { name: 'tours' })
   findAll() {
     return this.tourService.findAll();
   }
 
   @Query(() => Tour, { name: 'tour' })
-  findOne(@Args('id', { type: () => Int }) id: number) {
+  findOne(@Args('id', { type: () => ID }) id: string) {
     return this.tourService.findOne(id);
   }
 
@@ -30,8 +30,8 @@ export class TourResolver {
     return this.tourService.update(updateTourInput.id, updateTourInput);
   }
 
-  @Mutation(() => Tour)
-  removeTour(@Args('id', { type: () => Int }) id: number) {
+  @Mutation(() => Boolean)
+  removeTour(@Args('id', { type: () => ID }) id: string) {
     return this.tourService.remove(id);
   }
 }
