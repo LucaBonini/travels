@@ -1,5 +1,6 @@
 import { Field, ObjectType } from "@nestjs/graphql";
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, ManyToMany, PrimaryGeneratedColumn } from "typeorm";
+import { User } from "./user.entity";
 
 export enum RoleEnum {
   ADMIN = 'admin',
@@ -19,4 +20,7 @@ export class Role {
   @Column()
   @Field(type => String)
   name: RoleEnum
+
+  @ManyToMany(() => User, user => user.roles)
+  user: User
 }

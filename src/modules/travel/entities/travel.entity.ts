@@ -1,5 +1,6 @@
 import { ObjectType, Field, Int, InputType } from '@nestjs/graphql';
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Tour } from 'src/modules/tour/entities/tour.entity';
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 
 @ObjectType()
 export class Moods {
@@ -44,5 +45,8 @@ export class Travel {
   @Field(() => Moods)
   @Column('jsonb')
   moods: Moods
+
+  @OneToMany(() => Tour, tour => tour.travel)
+  tours: Tour[]
 
 }

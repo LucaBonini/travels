@@ -18,7 +18,7 @@ export class User {
   password: string;
 
   @Field(type => [Role])
-  @ManyToMany(_type => Role, role => role.id, {eager: true} )
+  @ManyToMany(_type => Role, role => role.user, {eager: true} )
   @JoinTable()
   roles: Role[]
 }

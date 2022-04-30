@@ -7,6 +7,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { AuthModule } from './modules/auth/auth.module';
 import { TravelModule } from './modules/travel/travel.module';
+import { TourModule } from './modules/tour/tour.module';
 
 @Module({
   imports: [
@@ -39,7 +40,8 @@ import { TravelModule } from './modules/travel/travel.module';
         autoSchemaFile: true,
       })
     }),
-    TravelModule
+    TravelModule,
+    TourModule
   ],
   controllers: [AppController],
   providers: [AppService],
