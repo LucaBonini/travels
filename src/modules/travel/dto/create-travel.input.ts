@@ -1,4 +1,5 @@
 import { InputType, Int, Field, ID } from '@nestjs/graphql';
+import { MinLength } from 'class-validator';
 import { Moods } from '../entities/travel.entity';
 
 @InputType()
@@ -24,6 +25,7 @@ export class CreateTravelInput {
   @Field(() => String, { description: 'Example field (placeholder)', nullable: false })
   slug: string;
 
+  @MinLength(4)
   @Field(() => String, {nullable: false})
   name: string
 
