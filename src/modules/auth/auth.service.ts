@@ -5,7 +5,7 @@ import {
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { UserCredentialsDto } from './dto/user-credentials.dto';
-import { RoleEnum } from './entities/role.entity';
+import { Role, RoleEnum } from './entities/role.entity';
 import { RolesRepository } from './repositories/roles.repository';
 import { UsersRepository } from './repositories/users.repository';
 import * as bcrypt from 'bcrypt';
@@ -23,19 +23,25 @@ export class AuthService {
     private readonly jwtService: JwtService,
   ) {}
 
-  async signUp(UserCredentialsDto: UserCredentialsDto) {
-    const role = await this.rolesRepository.getByName(RoleEnum.ADMIN);
-    if (!role) {
-      throw new NotFoundException('role not found');
+  async signUp(userCredentialsDto: UserCredentialsDto) {
+    let roles: Role[]
+    // for dev purpose only
+    if (!userCredentialsDto.roles) {
+      roles = await this.rolesRepository.getByName([RoleEnum.ADMIN]);
+    } else {
+      roles = await this.rolesRepository.getByName(userCredentialsDto.roles);
+    }
+    if (roles.length < 1) {
+      throw new NotFoundException('roles not found');
     }
 
-    const { email, password } = UserCredentialsDto;
-    await this.usersRepository.createUser(email, password, [role]);
+    const { email, password } = userCredentialsDto;
+    await this.usersRepository.createUser(email, password, roles);
     return true;
   }
 
-  async signIn(UserCredentialsDto: UserCredentialsDto): Promise<LoginResponse> {
-    const { email, password } = UserCredentialsDto;
+  async signIn(userCredentialsDto: UserCredentialsDto): Promise<LoginResponse> {
+    const { email, password } = userCredentialsDto;
     const user = await this.usersRepository.findOne({ email });
     if (user && (await bcrypt.compare(password, user.password))) {
       const payload: JwtPayload = {

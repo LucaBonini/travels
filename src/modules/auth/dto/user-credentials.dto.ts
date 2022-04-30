@@ -1,4 +1,4 @@
-import { ArgsType, Field, InputType, ObjectType } from '@nestjs/graphql';
+import { Field, InputType, registerEnumType } from '@nestjs/graphql';
 import {
   IsEmail,
   IsString,
@@ -8,6 +8,11 @@ import {
   MaxLength,
   Matches,
 } from 'class-validator';
+import { RoleEnum } from '../entities/role.entity';
+
+registerEnumType(RoleEnum, {
+  name: 'RoleEnum',
+});
 
 // @ArgsType()
 @InputType()
@@ -26,4 +31,7 @@ export class UserCredentialsDto {
   })
   @Field((type) => String)
   password: string;
+
+  @Field(type => [RoleEnum], {nullable: true})
+  roles: RoleEnum[]
 }
