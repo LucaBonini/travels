@@ -24,7 +24,9 @@ export class AuthResolver {
   @Mutation(() => Boolean)
   @Roles(RoleEnum.ADMIN)
   @UseGuards(GqlAuthGuard, RolesGuard)
-  createUser(@Args('userCredentialsDto') userCredentialsDto: UserCredentialsDto) {
+  createUser(
+    @Args('userCredentialsDto') userCredentialsDto: UserCredentialsDto,
+  ) {
     return this.authService.signUp(userCredentialsDto);
   }
 

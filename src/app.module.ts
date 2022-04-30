@@ -8,6 +8,11 @@ import { AppService } from './app.service';
 import { AuthModule } from './modules/auth/auth.module';
 import { TravelModule } from './modules/travel/travel.module';
 import { TourModule } from './modules/tour/tour.module';
+import { EmailModule } from './modules/email/email.module';
+import { ScheduleModule } from '@nestjs/schedule';
+import { EventEmitterModule } from '@nestjs/event-emitter';
+import { BullModule } from '@nestjs/bull';
+import { config } from 'process';
 
 @Module({
   imports: [
@@ -42,6 +47,18 @@ import { TourModule } from './modules/tour/tour.module';
     }),
     TravelModule,
     TourModule,
+    EmailModule,
+    ScheduleModule.forRoot(),
+    EventEmitterModule.forRoot(),
+    BullModule.forRootAsync({
+      inject: [ConfigService],
+      useFactory: (config: ConfigService) => ({
+        redis: {
+          host: config.get('REDIS_HOST'),
+          port: config.get('REDIS_PORT'),
+        },
+      }),
+    }),
   ],
   controllers: [AppController],
   providers: [AppService],

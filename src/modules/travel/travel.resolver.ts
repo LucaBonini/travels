@@ -5,7 +5,11 @@ import { CreateTravelInput } from './dto/create-travel.input';
 import { UpdateTravelInput } from './dto/update-travel.input';
 import { TravelPaginatedResult } from './types/travel-paginated-result.type';
 import { PaginationInput } from './dto/pagination.input';
-import { ClassSerializerInterceptor, UseGuards, UseInterceptors } from '@nestjs/common';
+import {
+  ClassSerializerInterceptor,
+  UseGuards,
+  UseInterceptors,
+} from '@nestjs/common';
 import { GqlAuthGuard } from '../auth/guard/gql-auth.guard';
 import { Roles } from '../auth/decorators/role.decorator';
 import { RoleEnum } from '../auth/entities/role.entity';

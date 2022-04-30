@@ -24,7 +24,7 @@ export class AuthService {
   ) {}
 
   async signUp(userCredentialsDto: UserCredentialsDto) {
-    let roles: Role[]
+    let roles: Role[];
     // for dev purpose only
     if (!userCredentialsDto.roles) {
       roles = await this.rolesRepository.getByName([RoleEnum.ADMIN]);

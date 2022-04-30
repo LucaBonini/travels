@@ -37,7 +37,7 @@ export class Tour {
   endingDate: Date;
 
   @Field(() => Float)
-  @Transform(val => val.value / 100)
+  @Transform((val) => val.value / 100)
   @Column()
   price: number;
 
@@ -49,13 +49,16 @@ export class Tour {
   @JoinTable()
   travelers: Traveler[];
 
-  @AfterInsert()
-  logInsert() {
-    console.log('Tour added');
-  }
+  @Column({ default: false })
+  notificationSent: boolean;
 
-  @AfterUpdate()
-  logUpdate() {
-    console.log('Tour updated');
-  }
+  // @AfterInsert()
+  // logInsert() {
+  //   console.log('Tour added');
+  // }
+
+  // @AfterUpdate()
+  // logUpdate() {
+  //   console.log('Tour updated');
+  // }
 }

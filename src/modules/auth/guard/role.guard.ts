@@ -11,15 +11,15 @@ export class RolesGuard implements CanActivate {
   constructor(private reflector: Reflector) {}
 
   canActivate(context: ExecutionContext): boolean {
-    const requiredRoles = this.reflector.getAllAndOverride<RoleEnum[]>(ROLES_KEY, [
-      context.getHandler(),
-      context.getClass(),
-    ]);
+    const requiredRoles = this.reflector.getAllAndOverride<RoleEnum[]>(
+      ROLES_KEY,
+      [context.getHandler(), context.getClass()],
+    );
     if (!requiredRoles) {
       return true;
     }
-    const ctx = GqlExecutionContext.create(context)
-    const { user } :{user: User} = ctx.getContext().req;
-    return user.roles.some(role => requiredRoles.includes(role.name));
+    const ctx = GqlExecutionContext.create(context);
+    const { user }: { user: User } = ctx.getContext().req;
+    return user.roles.some((role) => requiredRoles.includes(role.name));
   }
 }

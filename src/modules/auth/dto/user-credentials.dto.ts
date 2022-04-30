@@ -32,6 +32,6 @@ export class UserCredentialsDto {
   @Field((type) => String)
   password: string;
 
-  @Field(type => [RoleEnum], {nullable: true})
-  roles: RoleEnum[]
+  @Field((type) => [RoleEnum], { nullable: true })
+  roles: RoleEnum[];
 }
