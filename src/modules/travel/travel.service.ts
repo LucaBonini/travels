@@ -26,7 +26,7 @@ export class TravelService {
     return {
       travels: result,
       page,
-      pageCount: total / pageSize,
+      pageCount: (total / pageSize) > 1 ? (total / pageSize) : 1,
       pageSize
     }
   }
