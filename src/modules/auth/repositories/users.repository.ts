@@ -1,6 +1,6 @@
 import {
   ConflictException,
-  InternalServerErrorException,
+  InternalServerErrorException
 } from '@nestjs/common';
 import { EntityRepository, Repository } from 'typeorm';
 import { Role } from '../entities/role.entity';

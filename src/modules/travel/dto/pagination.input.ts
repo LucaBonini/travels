@@ -2,20 +2,20 @@ import { Field, InputType, Int, registerEnumType } from '@nestjs/graphql';
 
 export enum SortableFields {
   NAME = 'name',
-  SLUG = 'slug',
+  SLUG = 'slug'
 }
 
 export enum Order {
   ASC = 'ASC',
-  DESC = 'DESC',
+  DESC = 'DESC'
 }
 
 registerEnumType(SortableFields, {
-  name: 'SortableFields',
+  name: 'SortableFields'
 });
 
 registerEnumType(Order, {
-  name: 'Order',
+  name: 'Order'
 });
 
 @InputType()

@@ -10,7 +10,7 @@ import { TravelRepository } from './repositories/travel.repository';
 export class TravelService {
   constructor(
     @InjectRepository(TravelRepository)
-    private readonly travelRepository: TravelRepository,
+    private readonly travelRepository: TravelRepository
   ) {}
 
   create(createTravelInput: CreateTravelInput) {
@@ -24,31 +24,31 @@ export class TravelService {
     if (slug) {
       where = {
         ...where,
-        slug: Like(`%${slug}%`),
+        slug: Like(`%${slug}%`)
       };
     }
     if (name) {
       where = {
         ...where,
-        name: Like(`%${name}%`),
+        name: Like(`%${name}%`)
       };
     }
     if (numberOfDays) {
       where = {
         ...where,
-        nDays: numberOfDays,
+        nDays: numberOfDays
       };
     }
 
     let options: any = {
       take: pageSize,
       skip: pageSize * (page - 1),
-      where,
+      where
     };
 
     if (orderBy) {
       options.order = {
-        [orderBy]: sort,
+        [orderBy]: sort
       };
     }
     const [result, total] = await this.travelRepository.findAndCount(options);
@@ -57,16 +57,16 @@ export class TravelService {
       travels: result,
       page,
       pageCount: total / pageSize > 1 ? total / pageSize : 1,
-      pageSize,
+      pageSize
     };
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} travel`;
+  findOne(id: string) {
+    return this.travelRepository.findOne(id);
   }
 
   update(id: string, updateTravelInput: UpdateTravelInput) {
-    return `This action updates a #${id} travel`;
+    return this.travelRepository.update(id, updateTravelInput);
   }
 
   async remove(id: string) {

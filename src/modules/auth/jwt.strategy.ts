@@ -12,11 +12,11 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
   constructor(
     @InjectRepository(UsersRepository)
     private readonly usersRepository: UsersRepository,
-    private readonly configService: ConfigService,
+    private readonly configService: ConfigService
   ) {
     super({
       secretOrKey: configService.get('JWT_SECRET'),
-      jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
+      jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken()
     });
   }
 

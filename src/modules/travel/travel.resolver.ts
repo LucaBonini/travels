@@ -8,7 +8,7 @@ import { PaginationInput } from './dto/pagination.input';
 import {
   ClassSerializerInterceptor,
   UseGuards,
-  UseInterceptors,
+  UseInterceptors
 } from '@nestjs/common';
 import { GqlAuthGuard } from '../auth/guard/gql-auth.guard';
 import { Roles } from '../auth/decorators/role.decorator';
@@ -23,7 +23,7 @@ export class TravelResolver {
   @Roles(RoleEnum.ADMIN)
   @UseGuards(GqlAuthGuard, RolesGuard)
   createTravel(
-    @Args('createTravelInput') createTravelInput: CreateTravelInput,
+    @Args('createTravelInput') createTravelInput: CreateTravelInput
   ) {
     return this.travelService.create(createTravelInput);
   }
@@ -35,7 +35,7 @@ export class TravelResolver {
   }
 
   @Query(() => Travel, { name: 'travel' })
-  findOne(@Args('id', { type: () => Int }) id: number) {
+  findOne(@Args('id', { type: () => ID }) id: string) {
     return this.travelService.findOne(id);
   }
 
@@ -43,7 +43,7 @@ export class TravelResolver {
   @Roles(RoleEnum.ADMIN)
   @UseGuards(GqlAuthGuard, RolesGuard)
   updateTravel(
-    @Args('updateTravelInput') updateTravelInput: UpdateTravelInput,
+    @Args('updateTravelInput') updateTravelInput: UpdateTravelInput
   ) {
     return this.travelService.update(updateTravelInput.id, updateTravelInput);
   }

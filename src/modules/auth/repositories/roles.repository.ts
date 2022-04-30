@@ -7,9 +7,9 @@ export class RolesRepository extends Repository<Role> {
     return this.find({
       where: [
         ...names.map((n) => ({
-          name: n,
-        })),
-      ],
+          name: n
+        }))
+      ]
     });
   }
 }

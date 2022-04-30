@@ -20,11 +20,6 @@ export class TourResolver {
     return this.tourService.create(createTourInput);
   }
 
-  @Query(() => [Tour], { name: 'tours' })
-  findAll() {
-    return this.tourService.findAll();
-  }
-
   @Query(() => Tour, { name: 'tour' })
   findOne(@Args('id', { type: () => ID }) id: string) {
     return this.tourService.findOne(id);

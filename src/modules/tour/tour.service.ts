@@ -3,7 +3,6 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { CreateTourInput } from './dto/create-tour.input';
 import { UpdateTourInput } from './dto/update-tour.input';
 import { TourRepository } from './repositories/tour.repository';
-import { TravelerRepository } from './repositories/traveler.repository';
 import * as moment from 'moment';
 import { LessThan } from 'typeorm';
 import { Cron, CronExpression } from '@nestjs/schedule';
@@ -14,19 +13,13 @@ export class TourService {
   constructor(
     @InjectRepository(TourRepository)
     private readonly tourRepository: TourRepository,
-    @InjectRepository(TravelerRepository)
-    private readonly travelerRepository: TravelerRepository,
-    private readonly eventEmitter: EventEmitter2,
+    private readonly eventEmitter: EventEmitter2
   ) {}
 
   async create(createTourInput: CreateTourInput) {
     const tour = this.tourRepository.create(createTourInput);
     const { id } = await this.tourRepository.save(tour);
     return await this.tourRepository.findOne(id);
-  }
-
-  findAll() {
-    return this.tourRepository.find();
   }
 
   findOne(id: string) {
@@ -44,8 +37,8 @@ export class TourService {
       ...updateTourInput,
       travelers: [
         ...(tour.travelers || []),
-        ...(updateTourInput.travelers || []),
-      ],
+        ...(updateTourInput.travelers || [])
+      ]
     });
     return this.tourRepository.findOne(id);
   }
@@ -60,14 +53,14 @@ export class TourService {
     const fiveDaysAHead = moment().add(5, 'days').toDate();
     const tours = await this.tourRepository.find({
       notificationSent: false,
-      startingDate: LessThan(fiveDaysAHead),
+      startingDate: LessThan(fiveDaysAHead)
     });
 
     const toNotify = await this.tourRepository.save(
       tours.map((tour) => {
         tour.notificationSent = true;
         return tour;
-      }),
+      })
     );
     this.eventEmitter.emit('notify.travelers', toNotify);
   }

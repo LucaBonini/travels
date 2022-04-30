@@ -6,12 +6,12 @@ import {
   IsArray,
   MinLength,
   MaxLength,
-  Matches,
+  Matches
 } from 'class-validator';
 import { RoleEnum } from '../entities/role.entity';
 
 registerEnumType(RoleEnum, {
-  name: 'RoleEnum',
+  name: 'RoleEnum'
 });
 
 // @ArgsType()
@@ -27,7 +27,7 @@ export class UserCredentialsDto {
   @MaxLength(20)
   @IsString()
   @Matches(/((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/, {
-    message: 'password is too weak',
+    message: 'password is too weak'
   })
   @Field((type) => String)
   password: string;

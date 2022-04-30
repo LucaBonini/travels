@@ -18,7 +18,7 @@ import { config } from 'process';
   imports: [
     ConfigModule.forRoot({
       envFilePath: '.env.local',
-      isGlobal: true,
+      isGlobal: true
     }),
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
@@ -31,8 +31,8 @@ import { config } from 'process';
         password: configService.get('DB_PASSWORD'),
         database: configService.get('DB_NAME'),
         autoLoadEntities: true,
-        synchronize: true, // always keep db schema in sync
-      }),
+        synchronize: true // always keep db schema in sync
+      })
     }),
     AuthModule,
     GraphQLModule.forRootAsync<ApolloDriverConfig>({
@@ -42,8 +42,8 @@ import { config } from 'process';
       useFactory: (configService: ConfigService) => ({
         playground: true,
         path: configService.get('GQL_PATH'),
-        autoSchemaFile: true,
-      }),
+        autoSchemaFile: true
+      })
     }),
     TravelModule,
     TourModule,
@@ -55,12 +55,12 @@ import { config } from 'process';
       useFactory: (config: ConfigService) => ({
         redis: {
           host: config.get('REDIS_HOST'),
-          port: config.get('REDIS_PORT'),
-        },
-      }),
-    }),
+          port: config.get('REDIS_PORT')
+        }
+      })
+    })
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService]
 })
 export class AppModule {}

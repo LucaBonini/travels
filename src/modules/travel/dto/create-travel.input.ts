@@ -23,7 +23,7 @@ export class CreateTravelInput {
 
   @Field(() => String, {
     description: 'Example field (placeholder)',
-    nullable: false,
+    nullable: false
   })
   slug: string;
 

@@ -5,7 +5,7 @@ import { User } from './user.entity';
 export enum RoleEnum {
   ADMIN = 'admin',
   USER = 'user',
-  EDITOR = 'editor',
+  EDITOR = 'editor'
 }
 
 @Entity()

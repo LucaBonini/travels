@@ -25,7 +25,7 @@ export class AuthResolver {
   @Roles(RoleEnum.ADMIN)
   @UseGuards(GqlAuthGuard, RolesGuard)
   createUser(
-    @Args('userCredentialsDto') userCredentialsDto: UserCredentialsDto,
+    @Args('userCredentialsDto') userCredentialsDto: UserCredentialsDto
   ) {
     return this.authService.signUp(userCredentialsDto);
   }
@@ -37,7 +37,6 @@ export class AuthResolver {
 
   // create an ADMIN. for dev purpose only
   @Mutation(() => Boolean)
-  // @UseGuards(AuthGuard())
   signUp(@Args('userCredentialsDto') userCredentialsDto: UserCredentialsDto) {
     return this.authService.signUp(userCredentialsDto);
   }

@@ -1,16 +1,13 @@
-import { ObjectType, Field, Int, ID, Float } from '@nestjs/graphql';
+import { ObjectType, Field, ID, Float } from '@nestjs/graphql';
 import { Transform } from 'class-transformer';
 import { Travel } from 'src/modules/travel/entities/travel.entity';
 import {
-  AfterInsert,
-  AfterLoad,
-  AfterUpdate,
   Column,
   Entity,
   JoinTable,
   ManyToMany,
   ManyToOne,
-  PrimaryGeneratedColumn,
+  PrimaryGeneratedColumn
 } from 'typeorm';
 import { Traveler } from './traveler.entity';
 
@@ -44,7 +41,7 @@ export class Tour {
   @Field(() => [Traveler])
   @ManyToMany(() => Traveler, (traveler) => traveler.tours, {
     eager: true,
-    cascade: true,
+    cascade: true
   })
   @JoinTable()
   travelers: Traveler[];

@@ -9,10 +9,10 @@ export async function seedDb(rolesRepository: RolesRepository) {
     await Promise.all(
       roles.map(async (role) => {
         const ro = await rolesRepository.create({
-          name: role.name as RoleEnum,
+          name: role.name as RoleEnum
         });
         await rolesRepository.save(ro);
-      }),
+      })
     );
     console.log('Roles initialized!');
   }

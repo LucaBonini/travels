@@ -4,7 +4,7 @@ import {
   PrimaryGeneratedColumn,
   Column,
   ManyToMany,
-  JoinTable,
+  JoinTable
 } from 'typeorm';
 import { Role } from './role.entity';
 
