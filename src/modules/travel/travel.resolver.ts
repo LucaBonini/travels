@@ -3,6 +3,8 @@ import { TravelService } from './travel.service';
 import { Travel } from './entities/travel.entity';
 import { CreateTravelInput } from './dto/create-travel.input';
 import { UpdateTravelInput } from './dto/update-travel.input';
+import { TravelPaginatedResult } from './types/travel-paginated-result.type';
+import { PaginationInput } from './dto/pagination.input';
 
 @Resolver(() => Travel)
 export class TravelResolver {
@@ -13,9 +15,11 @@ export class TravelResolver {
     return this.travelService.create(createTravelInput);
   }
 
-  @Query(() => [Travel], { name: 'travels' })
-  findAll() {
-    return this.travelService.findAll();
+  @Query(() => TravelPaginatedResult, { name: 'travels' })
+  findAll(
+    @Args('paginationInput') paginationInput: PaginationInput
+  ) {
+    return this.travelService.findAll(paginationInput.page, paginationInput.pageSize);
   }
 
   @Query(() => Travel, { name: 'travel' })

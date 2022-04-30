@@ -15,8 +15,20 @@ export class TravelService {
     return this.travelRepository.createTravel(createTravelInput);
   }
 
-  findAll() {
-    return `This action returns all travel`;
+  async findAll(page: number, pageSize: number) {
+    const [ result, total ] = await this.travelRepository.findAndCount({
+      take: pageSize,
+      skip: pageSize * (page - 1)
+    });
+
+    console.log(total, 'total')
+
+    return {
+      travels: result,
+      page,
+      pageCount: total / pageSize,
+      pageSize
+    }
   }
 
   findOne(id: number) {
