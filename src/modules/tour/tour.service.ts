@@ -29,20 +29,10 @@ export class TourService {
   }
 
   async update(id: string, updateTourInput: UpdateTourInput) {
-    // const travelers = updateTourInput.travelers;
-    // let travelersIds: Traveler[] = [];
-    // if (travelers && travelers.length) {
-    //   const travelerEntities = this.travelerRepository.create(travelers);
-    //   travelersIds = (await this.travelerRepository.save(travelerEntities));
-    // }
     const tour = await this.tourRepository.findOne({id});
     if (!tour) {
       throw new NotFoundException('tour not found');
     }
-    // const tourUpdated = {
-    //   ...updateTourInput,
-    //   travelers: travelersIds
-    // };
     
     await this.tourRepository.save({
       ...tour, 
