@@ -7,13 +7,17 @@ import { TravelPaginatedResult } from './types/travel-paginated-result.type';
 import { PaginationInput } from './dto/pagination.input';
 import { UseGuards } from '@nestjs/common';
 import { GqlAuthGuard } from '../auth/guard/gql-auth.guard';
+import { Roles } from '../auth/decorators/role.decorator';
+import { RoleEnum } from '../auth/entities/role.entity';
+import { RolesGuard } from '../auth/guard/role.guard';
 
 @Resolver(() => Travel)
 export class TravelResolver {
   constructor(private readonly travelService: TravelService) {}
 
   @Mutation(() => Travel)
-  @UseGuards(GqlAuthGuard)
+  @Roles(RoleEnum.ADMIN)
+  @UseGuards(GqlAuthGuard, RolesGuard)
   createTravel(
     @Args('createTravelInput') createTravelInput: CreateTravelInput,
   ) {
@@ -31,15 +35,17 @@ export class TravelResolver {
   }
 
   @Mutation(() => Travel)
-  @UseGuards(GqlAuthGuard)
+  @Roles(RoleEnum.ADMIN)
+  @UseGuards(GqlAuthGuard, RolesGuard)
   updateTravel(
     @Args('updateTravelInput') updateTravelInput: UpdateTravelInput,
   ) {
     return this.travelService.update(updateTravelInput.id, updateTravelInput);
   }
 
-  @UseGuards(GqlAuthGuard)
   @Mutation(() => Boolean)
+  @Roles(RoleEnum.ADMIN)
+  @UseGuards(GqlAuthGuard, RolesGuard)
   removeTravel(@Args('id', { type: () => ID }) id: string) {
     return this.travelService.remove(id);
   }

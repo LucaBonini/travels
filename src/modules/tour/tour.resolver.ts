@@ -5,13 +5,17 @@ import { CreateTourInput } from './dto/create-tour.input';
 import { UpdateTourInput } from './dto/update-tour.input';
 import { UseGuards } from '@nestjs/common';
 import { GqlAuthGuard } from '../auth/guard/gql-auth.guard';
+import { RoleEnum } from '../auth/entities/role.entity';
+import { Roles } from '../auth/decorators/role.decorator';
+import { RolesGuard } from '../auth/guard/role.guard';
 
 @Resolver(() => Tour)
 export class TourResolver {
   constructor(private readonly tourService: TourService) {}
 
   @Mutation(() => Tour)
-  @UseGuards(GqlAuthGuard)
+  @Roles(RoleEnum.ADMIN)
+  @UseGuards(GqlAuthGuard, RolesGuard)
   createTour(@Args('createTourInput') createTourInput: CreateTourInput) {
     return this.tourService.create(createTourInput);
   }
@@ -27,13 +31,15 @@ export class TourResolver {
   }
 
   @Mutation(() => Tour)
-  @UseGuards(GqlAuthGuard)
+  @Roles(RoleEnum.ADMIN, RoleEnum.EDITOR)
+  @UseGuards(GqlAuthGuard, RolesGuard)
   updateTour(@Args('updateTourInput') updateTourInput: UpdateTourInput) {
     return this.tourService.update(updateTourInput.id, updateTourInput);
   }
 
   @Mutation(() => Boolean)
-  @UseGuards(GqlAuthGuard)
+  @Roles(RoleEnum.ADMIN, RoleEnum.EDITOR) // should an editore be able to delete it?
+  @UseGuards(GqlAuthGuard, RolesGuard)
   removeTour(@Args('id', { type: () => ID }) id: string) {
     return this.tourService.remove(id);
   }
