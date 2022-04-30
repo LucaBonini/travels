@@ -16,6 +16,8 @@ services:
       DB_NAME: travels-db
       JWT_SECRET: zxcvbnmasdfghj111111
       GQL_PATH: "/graphql"
+      REDIS_URL: redis
+      REDIS_PORT: 6379
   redis:
     image: "redis"
     ports:
