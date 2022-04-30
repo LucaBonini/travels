@@ -8,9 +8,9 @@ import { TravelRepository } from './repositories/travel.repository';
 
 @Injectable()
 export class TravelService {
-
   constructor(
-    @InjectRepository(TravelRepository) private readonly travelRepository: TravelRepository
+    @InjectRepository(TravelRepository)
+    private readonly travelRepository: TravelRepository,
   ) {}
 
   create(createTravelInput: CreateTravelInput) {
@@ -18,47 +18,48 @@ export class TravelService {
   }
 
   async findAll(paginationInput: PaginationInput) {
-    const { page, pageSize, slug, name, numberOfDays, sort, orderBy } = paginationInput;
+    const { page, pageSize, slug, name, numberOfDays, sort, orderBy } =
+      paginationInput;
     let where = {};
     if (slug) {
       where = {
         ...where,
-        slug: Like(`%${slug}%`)
+        slug: Like(`%${slug}%`),
       };
     }
     if (name) {
       where = {
         ...where,
-        name: Like(`%${name}%`)
+        name: Like(`%${name}%`),
       };
     }
     if (numberOfDays) {
       where = {
         ...where,
-        nDays: numberOfDays
+        nDays: numberOfDays,
       };
     }
 
     let options: any = {
       take: pageSize,
       skip: pageSize * (page - 1),
-      where
-    }
+      where,
+    };
 
     if (orderBy) {
       options.order = {
-        [orderBy]: sort 
-      }
+        [orderBy]: sort,
+      };
     }
-    console.log(options, 'options')
-    const [ result, total ] = await this.travelRepository.findAndCount(options);
+    console.log(options, 'options');
+    const [result, total] = await this.travelRepository.findAndCount(options);
 
     return {
       travels: result,
       page,
-      pageCount: (total / pageSize) > 1 ? (total / pageSize) : 1,
-      pageSize
-    }
+      pageCount: total / pageSize > 1 ? total / pageSize : 1,
+      pageSize,
+    };
   }
 
   findOne(id: number) {

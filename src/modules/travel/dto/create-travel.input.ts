@@ -18,23 +18,25 @@ export class MoodsInput {
 
 @InputType()
 export class CreateTravelInput {
-  
-  @Field(() => Boolean, {nullable: false})
-  isPublic: boolean
+  @Field(() => Boolean, { nullable: false })
+  isPublic: boolean;
 
-  @Field(() => String, { description: 'Example field (placeholder)', nullable: false })
+  @Field(() => String, {
+    description: 'Example field (placeholder)',
+    nullable: false,
+  })
   slug: string;
 
   @MinLength(4)
-  @Field(() => String, {nullable: false})
-  name: string
+  @Field(() => String, { nullable: false })
+  name: string;
 
-  @Field(() => String, {nullable: false})
-  description: string
+  @Field(() => String, { nullable: false })
+  description: string;
 
-  @Field(() => Int, {nullable: false})
-  nDays: number
+  @Field(() => Int, { nullable: false })
+  nDays: number;
 
-  @Field(() => MoodsInput, {nullable: false})
-  moods: MoodsInput
+  @Field(() => MoodsInput, { nullable: false })
+  moods: MoodsInput;
 }

@@ -19,12 +19,12 @@ import { JwtStrategy } from './jwt.strategy';
       useFactory: (configService: ConfigService) => ({
         secret: configService.get('JWT_SECRET'),
         signOptions: {
-          expiresIn: 3600
-        }
-      })
-    })
+          expiresIn: 3600,
+        },
+      }),
+    }),
   ],
   providers: [AuthService, AuthResolver, JwtStrategy],
-  exports: [JwtStrategy, PassportModule]
+  exports: [JwtStrategy, PassportModule],
 })
 export class AuthModule {}

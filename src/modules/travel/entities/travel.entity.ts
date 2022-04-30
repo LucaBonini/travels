@@ -21,33 +21,32 @@ export class Moods {
 export class Travel {
   @Field(() => String)
   @PrimaryGeneratedColumn('uuid')
-  id: string
+  id: string;
 
   @Field(() => Boolean)
   @Column()
-  isPublic: boolean
+  isPublic: boolean;
 
   @Field(() => String, { description: 'Example field (placeholder)' })
   slug: string;
 
   @Field(() => String)
   @Column()
-  name: string
+  name: string;
 
   @Field(() => String)
   @Column()
-  description: string
+  description: string;
 
   @Field(() => Int)
   @Column()
-  nDays: number
+  nDays: number;
 
   @Field(() => Moods)
   @Column('jsonb')
-  moods: Moods
+  moods: Moods;
 
   @Field(() => [Tour], { nullable: true })
-  @OneToMany(() => Tour, tour => tour.travel, {eager: true})
-  tours: Tour[]
-
+  @OneToMany(() => Tour, (tour) => tour.travel, { eager: true })
+  tours: Tour[];
 }

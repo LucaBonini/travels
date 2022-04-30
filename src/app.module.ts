@@ -13,7 +13,7 @@ import { TourModule } from './modules/tour/tour.module';
   imports: [
     ConfigModule.forRoot({
       envFilePath: '.env.local',
-      isGlobal: true
+      isGlobal: true,
     }),
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
@@ -26,8 +26,8 @@ import { TourModule } from './modules/tour/tour.module';
         password: configService.get('DB_PASSWORD'),
         database: configService.get('DB_NAME'),
         autoLoadEntities: true,
-        synchronize: true // always keep db schema in sync
-      })
+        synchronize: true, // always keep db schema in sync
+      }),
     }),
     AuthModule,
     GraphQLModule.forRootAsync<ApolloDriverConfig>({
@@ -38,10 +38,10 @@ import { TourModule } from './modules/tour/tour.module';
         playground: true,
         path: configService.get('GQL_PATH'),
         autoSchemaFile: true,
-      })
+      }),
     }),
     TravelModule,
-    TourModule
+    TourModule,
   ],
   controllers: [AppController],
   providers: [AppService],

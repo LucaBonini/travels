@@ -1,18 +1,17 @@
-import { Field, Int, ObjectType } from "@nestjs/graphql";
-import { Travel } from "../entities/travel.entity";
+import { Field, Int, ObjectType } from '@nestjs/graphql';
+import { Travel } from '../entities/travel.entity';
 
 @ObjectType()
 export class TravelPaginatedResult {
-
   @Field(() => [Travel])
-  travels: Travel[]
+  travels: Travel[];
 
   @Field(() => Int)
-  page: number
+  page: number;
 
   @Field(() => Int)
-  pageSize: number
+  pageSize: number;
 
   @Field(() => Int)
-  pageCount: number
+  pageCount: number;
 }

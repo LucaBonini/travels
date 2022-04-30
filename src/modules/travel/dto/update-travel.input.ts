@@ -4,23 +4,23 @@ import { InputType, Field, Int, PartialType, ID } from '@nestjs/graphql';
 @InputType()
 export class UpdateTravelInput extends PartialType(CreateTravelInput) {
   @Field(() => ID)
-  id: string
+  id: string;
 
   @Field(() => Boolean)
-  isPublic: boolean
+  isPublic: boolean;
 
   @Field(() => String, { description: 'Example field (placeholder)' })
   slug: string;
 
   @Field(() => String)
-  name: string
+  name: string;
 
   @Field(() => String)
-  description: string
+  description: string;
 
   @Field(() => Int)
-  nDays: number
+  nDays: number;
 
   @Field(() => MoodsInput)
-  moods: MoodsInput
+  moods: MoodsInput;
 }

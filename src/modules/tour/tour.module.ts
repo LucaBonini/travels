@@ -7,6 +7,6 @@ import { TravelerRepository } from './repositories/traveler.repository';
 
 @Module({
   imports: [TypeOrmModule.forFeature([TourRepository, TravelerRepository])],
-  providers: [TourResolver, TourService]
+  providers: [TourResolver, TourService],
 })
 export class TourModule {}

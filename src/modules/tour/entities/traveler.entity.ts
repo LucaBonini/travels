@@ -1,23 +1,28 @@
-import { Field, ID, ObjectType } from "@nestjs/graphql";
-import { Column, Entity, JoinTable, ManyToMany, PrimaryGeneratedColumn } from "typeorm";
-import { Tour } from "./tour.entity";
+import { Field, ID, ObjectType } from '@nestjs/graphql';
+import {
+  Column,
+  Entity,
+  JoinTable,
+  ManyToMany,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
+import { Tour } from './tour.entity';
 
 @Entity()
 @ObjectType()
 export class Traveler {
-
   @PrimaryGeneratedColumn('uuid')
   @Field(() => ID)
-  id: string
+  id: string;
 
   @Column()
   @Field(() => String)
-  fullname: string
+  fullname: string;
 
   @Column({ unique: true })
   @Field(() => String)
-  email: string
+  email: string;
 
-  @ManyToMany(() => Tour, tour => tour.travelers)
-  tours: Tour[]
+  @ManyToMany(() => Tour, (tour) => tour.travelers)
+  tours: Tour[];
 }

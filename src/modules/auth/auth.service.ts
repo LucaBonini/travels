@@ -1,4 +1,8 @@
-import { Injectable, NotFoundException, UnauthorizedException } from '@nestjs/common';
+import {
+  Injectable,
+  NotFoundException,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { UserCredentialsDto } from './dto/user-credentials.dto';
 import { RoleEnum } from './entities/role.entity';
@@ -12,9 +16,11 @@ import { LoginResponse } from './types/login-response.type';
 @Injectable()
 export class AuthService {
   constructor(
-    @InjectRepository(UsersRepository) private readonly usersRepository: UsersRepository,
-    @InjectRepository(RolesRepository) private readonly rolesRepository: RolesRepository,
-    private readonly jwtService: JwtService
+    @InjectRepository(UsersRepository)
+    private readonly usersRepository: UsersRepository,
+    @InjectRepository(RolesRepository)
+    private readonly rolesRepository: RolesRepository,
+    private readonly jwtService: JwtService,
   ) {}
 
   async signUp(UserCredentialsDto: UserCredentialsDto) {
@@ -33,12 +39,12 @@ export class AuthService {
     const user = await this.usersRepository.findOne({ email });
     if (user && (await bcrypt.compare(password, user.password))) {
       const payload: JwtPayload = {
-        id: user.id
+        id: user.id,
       };
       const accessToken = await this.jwtService.sign(payload);
       return {
-        accessToken
-      }
+        accessToken,
+      };
     } else {
       throw new UnauthorizedException();
     }

@@ -4,21 +4,20 @@ import { TravelerInput } from './traveler.input';
 
 @InputType()
 export class CreateTourInput {
+  @Field(() => String)
+  travel: Travel;
 
   @Field(() => String)
-  travel: Travel
-
-  @Field(() => String)
-  name: string
+  name: string;
 
   @Field(() => Date)
-  startingDate: Date
+  startingDate: Date;
 
   @Field(() => Date)
-  endingDate: Date
+  endingDate: Date;
 
   @Field(() => Int)
-  price: number
+  price: number;
 
   // @Field(() => [TravelerInput], {nullable: true})
   // travelers: TravelerInput[]

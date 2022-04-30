@@ -6,9 +6,7 @@ import { UpdateTourInput } from './dto/update-tour.input';
 
 @Resolver(() => Tour)
 export class TourResolver {
-  constructor(
-    private readonly tourService: TourService
-    ) {}
+  constructor(private readonly tourService: TourService) {}
 
   @Mutation(() => Tour)
   createTour(@Args('createTourInput') createTourInput: CreateTourInput) {

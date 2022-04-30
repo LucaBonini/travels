@@ -7,6 +7,6 @@ export class UpdateTourInput extends PartialType(CreateTourInput) {
   @Field(() => ID)
   id: string;
 
-  @Field(() => [TravelerInput], {nullable: true})
-  travelers?: TravelerInput[]
+  @Field(() => [TravelerInput], { nullable: true })
+  travelers?: TravelerInput[];
 }

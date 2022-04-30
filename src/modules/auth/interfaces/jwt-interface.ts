@@ -1,7 +1,7 @@
 export interface JwtInterface {
-  accessToken: string
+  accessToken: string;
 }
 
 export interface JwtPayload {
-  id: string
+  id: string;
 }

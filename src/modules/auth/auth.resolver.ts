@@ -10,31 +10,23 @@ import { LoginResponse } from './types/login-response.type';
 
 @Resolver()
 export class AuthResolver {
-  constructor(
-    private readonly authService: AuthService
-  ){}
+  constructor(private readonly authService: AuthService) {}
 
-  @Query(returns => User)
+  @Query((returns) => User)
   @UseGuards(GqlAuthGuard)
-  me(
-    @CurrentUser() user
-  ) {
-    return user
+  me(@CurrentUser() user) {
+    return user;
   }
 
-  @Mutation(returns => LoginResponse)
+  @Mutation((returns) => LoginResponse)
   // @UseGuards(AuthGuard())
-  signIn(
-    @Args('userCredentialsDto') userCredentialsDto: UserCredentialsDto
-  ) {
+  signIn(@Args('userCredentialsDto') userCredentialsDto: UserCredentialsDto) {
     return this.authService.signIn(userCredentialsDto);
   }
 
-  @Mutation(returns => Boolean)
+  @Mutation((returns) => Boolean)
   // @UseGuards(AuthGuard())
-  signUp(
-    @Args('userCredentialsDto') userCredentialsDto: UserCredentialsDto
-  ) {
+  signUp(@Args('userCredentialsDto') userCredentialsDto: UserCredentialsDto) {
     return this.authService.signUp(userCredentialsDto);
   }
 }

@@ -8,10 +8,11 @@ import { TravelerRepository } from './repositories/traveler.repository';
 
 @Injectable()
 export class TourService {
-
   constructor(
-    @InjectRepository(TourRepository) private readonly tourRepository: TourRepository,
-    @InjectRepository(TravelerRepository) private readonly travelerRepository: TravelerRepository
+    @InjectRepository(TourRepository)
+    private readonly tourRepository: TourRepository,
+    @InjectRepository(TravelerRepository)
+    private readonly travelerRepository: TravelerRepository,
   ) {}
 
   async create(createTourInput: CreateTourInput) {
@@ -29,18 +30,19 @@ export class TourService {
   }
 
   async update(id: string, updateTourInput: UpdateTourInput) {
-    const tour = await this.tourRepository.findOne({id});
+    const tour = await this.tourRepository.findOne({ id });
     if (!tour) {
       throw new NotFoundException('tour not found');
     }
-    
+
     await this.tourRepository.save({
-      ...tour, 
-      ...updateTourInput, 
+      ...tour,
+      ...updateTourInput,
       travelers: [
         ...(tour.travelers || []),
-        ...(updateTourInput.travelers || [])
-    ]});
+        ...(updateTourInput.travelers || []),
+      ],
+    });
     return this.tourRepository.findOne(id);
   }
 
