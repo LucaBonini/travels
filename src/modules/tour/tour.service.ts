@@ -7,13 +7,15 @@ import * as moment from 'moment';
 import { LessThan } from 'typeorm';
 import { Cron, CronExpression } from '@nestjs/schedule';
 import { EventEmitter2 } from '@nestjs/event-emitter';
+import { TravelerRepository } from './repositories/traveler.repository';
 
 @Injectable()
 export class TourService {
   constructor(
     @InjectRepository(TourRepository)
     private readonly tourRepository: TourRepository,
-    private readonly eventEmitter: EventEmitter2
+    private readonly eventEmitter: EventEmitter2,
+    private readonly travelerRepository: TravelerRepository
   ) {}
 
   async create(createTourInput: CreateTourInput) {
@@ -30,6 +32,15 @@ export class TourService {
     const tour = await this.tourRepository.findOne({ id });
     if (!tour) {
       throw new NotFoundException('tour not found');
+    }
+    let existingTravelers = [];
+    if (updateTourInput.travelers) {
+      existingTravelers = await this.travelerRepository.getByEmails(updateTourInput.travelers.map(t => t.email));
+      if (existingTravelers) {
+        updateTourInput.travelers = updateTourInput.travelers.map(traveler => {
+          return existingTravelers.find(t => t.email == traveler.email) || traveler;
+        })
+      }
     }
 
     await this.tourRepository.save({

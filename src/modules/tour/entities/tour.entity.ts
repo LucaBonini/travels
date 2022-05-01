@@ -41,7 +41,7 @@ export class Tour {
   @Field(() => [Traveler])
   @ManyToMany(() => Traveler, (traveler) => traveler.tours, {
     eager: true,
-    cascade: true
+    cascade: ['insert', 'update', 'remove']
   })
   @JoinTable()
   travelers: Traveler[];
