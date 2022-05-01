@@ -27,9 +27,9 @@ export class AuthService {
     let roles: Role[];
     // for dev purpose only
     if (!userCredentialsDto.roles) {
-      roles = await this.rolesRepository.getByName([RoleEnum.ADMIN]);
+      roles = await this.rolesRepository.getByNames([RoleEnum.ADMIN]);
     } else {
-      roles = await this.rolesRepository.getByName(userCredentialsDto.roles);
+      roles = await this.rolesRepository.getByNames(userCredentialsDto.roles);
     }
     if (roles.length < 1) {
       throw new NotFoundException('roles not found');

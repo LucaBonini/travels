@@ -3,7 +3,7 @@ import { Role, RoleEnum } from '../entities/role.entity';
 
 @EntityRepository(Role)
 export class RolesRepository extends Repository<Role> {
-  getByName(names: RoleEnum[]) {
+  getByNames(names: RoleEnum[]) {
     return this.find({
       where: [
         ...names.map((n) => ({
