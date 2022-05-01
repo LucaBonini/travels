@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Like } from 'typeorm';
 import { CreateTravelInput } from './dto/create-travel.input';
@@ -52,7 +52,6 @@ export class TravelService {
       };
     }
     const [result, total] = await this.travelRepository.findAndCount(options);
-
     return {
       travels: result,
       page,
@@ -65,8 +64,12 @@ export class TravelService {
     return this.travelRepository.findOne(id);
   }
 
-  update(id: string, updateTravelInput: UpdateTravelInput) {
-    return this.travelRepository.update(id, updateTravelInput);
+  async update(id: string, updateTravelInput: UpdateTravelInput) {
+    const travel = await this.travelRepository.findOne(id);
+    if (!travel) {
+      throw new NotFoundException('travel not found');
+    }
+    return await this.travelRepository.save({...travel, ...updateTravelInput});
   }
 
   async remove(id: string) {
