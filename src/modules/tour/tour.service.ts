@@ -20,7 +20,7 @@ export class TourService {
 
   async create(createTourInput: CreateTourInput) {
     const tour = this.tourRepository.create(createTourInput);
-    return await this.tourRepository.save(tour, { reload: true});
+    return await this.tourRepository.save(tour, { reload: true });
   }
 
   findOne(id: string) {
@@ -34,18 +34,28 @@ export class TourService {
     }
     let existingTravelers = [];
     if (updateTourInput.travelers) {
-      existingTravelers = await this.travelerRepository.getByEmails(updateTourInput.travelers.map(t => t.email));
+      existingTravelers = await this.travelerRepository.getByEmails(
+        updateTourInput.travelers.map((t) => t.email)
+      );
       if (existingTravelers) {
-        updateTourInput.travelers = updateTourInput.travelers.map(traveler => {
-          return existingTravelers.find(t => t.email == traveler.email) || traveler;
-        })
+        updateTourInput.travelers = updateTourInput.travelers.map(
+          (traveler) => {
+            return (
+              existingTravelers.find((t) => t.email == traveler.email) ||
+              traveler
+            );
+          }
+        );
       }
     }
 
-    return await this.tourRepository.save({
-      ...tour,
-      ...updateTourInput,
-    }, {reload: true});
+    return await this.tourRepository.save(
+      {
+        ...tour,
+        ...updateTourInput
+      },
+      { reload: true }
+    );
   }
 
   async remove(id: string) {

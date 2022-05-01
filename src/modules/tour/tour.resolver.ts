@@ -3,7 +3,11 @@ import { TourService } from './tour.service';
 import { Tour } from './entities/tour.entity';
 import { CreateTourInput } from './dto/create-tour.input';
 import { UpdateTourInput } from './dto/update-tour.input';
-import { ClassSerializerInterceptor, UseGuards, UseInterceptors } from '@nestjs/common';
+import {
+  ClassSerializerInterceptor,
+  UseGuards,
+  UseInterceptors
+} from '@nestjs/common';
 import { GqlAuthGuard } from '../auth/guard/gql-auth.guard';
 import { RoleEnum } from '../auth/entities/role.entity';
 import { Roles } from '../auth/decorators/role.decorator';

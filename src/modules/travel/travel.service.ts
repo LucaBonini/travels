@@ -69,7 +69,10 @@ export class TravelService {
     if (!travel) {
       throw new NotFoundException('travel not found');
     }
-    return await this.travelRepository.save({...travel, ...updateTravelInput});
+    return await this.travelRepository.save({
+      ...travel,
+      ...updateTravelInput
+    });
   }
 
   async remove(id: string) {

@@ -15,7 +15,7 @@ describe('AuthService', () => {
     email: 'luca.bonini@email.com',
     password: 'Password1!',
     roles: [RoleEnum.ADMIN]
-  }
+  };
 
   const mockUser = {
     email: 'luca.bonini@email.com',
@@ -23,15 +23,15 @@ describe('AuthService', () => {
     password: '$2b$10$.SGFE6p1CQJN4Ab0hLpaRuxOWSJvt5J1Es5522rTefkSKTFLVfY3S',
     roles: [
       {
-        id: "baf18948-721e-49f5-aa7f-bed1a5415cb6",
-        name: "admin"
+        id: 'baf18948-721e-49f5-aa7f-bed1a5415cb6',
+        name: 'admin'
       }
     ]
-  }
+  };
 
   const mockJwtService = () => ({
     sign: jest.fn()
-  })
+  });
 
   const mockUsersRepository = () => ({
     createUser: jest.fn(),
@@ -42,7 +42,6 @@ describe('AuthService', () => {
   });
 
   beforeEach(async () => {
-
     const module: TestingModule = await Test.createTestingModule({
       providers: [
         AuthService,
@@ -66,21 +65,21 @@ describe('AuthService', () => {
     it('should create a new user and returns true', async () => {
       expect(rolesRepository.getByNames).not.toHaveBeenCalled();
       rolesRepository.getByNames.mockResolvedValue({
-        id: "baf18948-721e-49f5-aa7f-bed1a5415cb6",
-        name: "admin"
+        id: 'baf18948-721e-49f5-aa7f-bed1a5415cb6',
+        name: 'admin'
       });
-      const result = await service.signUp(userCredentialsDto)
-      expect(result).toBe(true)
-    })
-  })
+      const result = await service.signUp(userCredentialsDto);
+      expect(result).toBe(true);
+    });
+  });
 
   describe('signIn', () => {
     it('should sign in and return the access token', async () => {
       expect(usersRepository.findOne).not.toHaveBeenCalled();
       usersRepository.findOne.mockResolvedValue(mockUser);
-      jwtService.sign.mockResolvedValue('asasasasasasasasasas')
+      jwtService.sign.mockResolvedValue('asasasasasasasasasas');
       const result = await service.signIn(userCredentialsDto);
-      expect(result).toEqual({accessToken: 'asasasasasasasasasas'});
-    })
-  })
+      expect(result).toEqual({ accessToken: 'asasasasasasasasasas' });
+    });
+  });
 });
