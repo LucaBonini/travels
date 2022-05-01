@@ -20,8 +20,7 @@ export class TourService {
 
   async create(createTourInput: CreateTourInput) {
     const tour = this.tourRepository.create(createTourInput);
-    const { id } = await this.tourRepository.save(tour);
-    return await this.tourRepository.findOne(id);
+    return await this.tourRepository.save(tour, { reload: true});
   }
 
   findOne(id: string) {

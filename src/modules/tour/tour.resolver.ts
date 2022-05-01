@@ -3,7 +3,7 @@ import { TourService } from './tour.service';
 import { Tour } from './entities/tour.entity';
 import { CreateTourInput } from './dto/create-tour.input';
 import { UpdateTourInput } from './dto/update-tour.input';
-import { UseGuards } from '@nestjs/common';
+import { ClassSerializerInterceptor, UseGuards, UseInterceptors } from '@nestjs/common';
 import { GqlAuthGuard } from '../auth/guard/gql-auth.guard';
 import { RoleEnum } from '../auth/entities/role.entity';
 import { Roles } from '../auth/decorators/role.decorator';
@@ -16,6 +16,7 @@ export class TourResolver {
   @Mutation(() => Tour)
   @Roles(RoleEnum.ADMIN)
   @UseGuards(GqlAuthGuard, RolesGuard)
+  @UseInterceptors(ClassSerializerInterceptor)
   createTour(@Args('createTourInput') createTourInput: CreateTourInput) {
     return this.tourService.create(createTourInput);
   }
