@@ -43,15 +43,10 @@ export class TourService {
       }
     }
 
-    await this.tourRepository.save({
+    return await this.tourRepository.save({
       ...tour,
       ...updateTourInput,
-      travelers: [
-        ...(tour.travelers || []),
-        ...(updateTourInput.travelers || [])
-      ]
-    });
-    return this.tourRepository.findOne(id);
+    }, {reload: true});
   }
 
   async remove(id: string) {
