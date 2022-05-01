@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { ConflictException, Injectable, InternalServerErrorException, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Like } from 'typeorm';
 import { CreateTravelInput } from './dto/create-travel.input';
@@ -14,7 +14,15 @@ export class TravelService {
   ) {}
 
   create(createTravelInput: CreateTravelInput) {
-    return this.travelRepository.createTravel(createTravelInput);
+    try {
+      return this.travelRepository.createTravel(createTravelInput);
+    } catch (error) {
+      if (error.code === '23505') {
+        throw new ConflictException('email already exists');
+      } else {
+        throw new InternalServerErrorException();
+      }
+    }
   }
 
   async findAll(paginationInput: PaginationInput) {

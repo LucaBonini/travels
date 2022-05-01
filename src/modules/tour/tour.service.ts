@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { ConflictException, Injectable, InternalServerErrorException, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { CreateTourInput } from './dto/create-tour.input';
 import { UpdateTourInput } from './dto/update-tour.input';
@@ -19,8 +19,16 @@ export class TourService {
   ) {}
 
   async create(createTourInput: CreateTourInput) {
-    const tour = this.tourRepository.create(createTourInput);
-    return await this.tourRepository.save(tour, { reload: true });
+    try {
+      const tour = this.tourRepository.create(createTourInput);
+      return await this.tourRepository.save(tour, { reload: true });      
+    } catch (error) {
+      if (error.code === '23505') {
+        throw new ConflictException('email already exists');
+      } else {
+        throw new InternalServerErrorException();
+      }
+    }
   }
 
   findOne(id: string) {
