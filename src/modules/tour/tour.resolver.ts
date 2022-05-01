@@ -26,6 +26,7 @@ export class TourResolver {
   }
 
   @Query(() => Tour, { name: 'tour' })
+  @UseInterceptors(ClassSerializerInterceptor)
   findOne(@Args('id', { type: () => ID }) id: string) {
     return this.tourService.findOne(id);
   }
@@ -33,6 +34,7 @@ export class TourResolver {
   @Mutation(() => Tour)
   @Roles(RoleEnum.ADMIN, RoleEnum.EDITOR)
   @UseGuards(GqlAuthGuard, RolesGuard)
+  @UseInterceptors(ClassSerializerInterceptor)
   updateTour(@Args('updateTourInput') updateTourInput: UpdateTourInput) {
     return this.tourService.update(updateTourInput.id, updateTourInput);
   }
