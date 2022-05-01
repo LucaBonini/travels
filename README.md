@@ -22,3 +22,5 @@ Travels is a simple backend that manages travels backed by:
 the project automatically starts at `localhost:3000`
 
 graphql endpoint `/graphql`
+
+there is a requests collection `travels-gql-collection.json` in the rootn of the project that provides examples
