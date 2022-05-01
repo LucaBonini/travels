@@ -1,6 +1,6 @@
 import { ObjectType, Field, ID, Float } from '@nestjs/graphql';
 import { Transform } from 'class-transformer';
-import { Travel } from 'src/modules/travel/entities/travel.entity';
+import { Travel } from '../../../modules/travel/entities/travel.entity';
 import {
   Column,
   Entity,
