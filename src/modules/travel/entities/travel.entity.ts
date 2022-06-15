@@ -28,6 +28,7 @@ export class Travel {
   isPublic: boolean;
 
   @Field(() => String, { description: 'Example field (placeholder)' })
+  @Column()
   slug: string;
 
   @Field(() => String)
